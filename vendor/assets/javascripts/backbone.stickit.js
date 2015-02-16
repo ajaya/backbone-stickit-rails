@@ -509,7 +509,8 @@
             var dataVal = Backbone.$(option).data('stickit-bind-val');
             return {
               value: dataVal !== undefined ? dataVal : option.value,
-              label: option.text
+              label: option.text,
+              data: Backbone.$(option).data()
             };
           }).get();
         };
@@ -582,6 +583,11 @@
                 option.prop('selected', true);
             });
           }
+
+          // Add the html5 data attributes to options
+          _.each(obj.data, function (value, attribute, list) {
+            option.attr(('data-' + deCase(attribute)), value);
+          });
 
           $el.append(option);
         });
